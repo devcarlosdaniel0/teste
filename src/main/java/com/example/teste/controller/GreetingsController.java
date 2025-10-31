@@ -1,5 +1,6 @@
 package com.example.teste.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,8 +12,15 @@ public class GreetingsController {
         return "Hello world!";
     }
 
-    @GetMapping("/ola")
-    public String ola() {
-        return "Olá mundo!";
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/user")
+    public String user() {
+        return "Hello user!";
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin")
+    public String admin() {
+        return "Hello admin!";
     }
 }
